@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .title {
+            background-color: antiquewhite;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script src="../react-js/react.development.js"></script>
+    <script src="../react-js/react-dom.development.js"></script>
+    <script src="../react-js/babel.min.js"></script>
+    <script src="../react-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Login extends React.Component {
+
+            state = {
+                username: '',
+                password: ''
+            }
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com" onSubmit={this.submit}>
+                        <input onChange={(e) => {this.saveFormData('username', e.target.value)}} type="text" name="username" />
+                        <input onChange={(e) => {this.saveFormData('password', e.target.value)}} type="password" name="password" />
+                        <button>login</button>
+                    </form>
+                )
+            }
+            submit = (e) => {
+                e.preventDefault()  // 阻止默认事件
+                const { username, password } = this.state
+                alert(username + password)
+            }
+            saveFormData = (dataType, value) => {
+                this.setState({ [dataType]: value })
+            }
+        }
+        ReactDOM.render(<Login />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

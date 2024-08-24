@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .title {
+            background-color: antiquewhite;
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script src="../react-js/react.development.js"></script>
+    <script src="../react-js/react-dom.development.js"></script>
+    <script src="../react-js/babel.min.js"></script>
+    <script src="../react-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Life extends React.Component {
+
+            state = { opacity: 1 }
+
+            componentDidMount() {
+                this.timer = setInterval(() => {
+                    let { opacity } = this.state
+                    opacity -= 0.05
+                    if (opacity <= 0) opacity = 1
+                    this.setState({ opacity })
+                }, 300)
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.timer)
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2 style={{ opacity: this.state.opacity }}>show something</h2>
+                        <button onClick={this.destory}>destory</button>
+                        <button onClick={this.start}>start</button>
+                    </div>
+                )
+            }
+            start = () => {
+                setInterval(() => {
+                    let { opacity } = this.state
+                    opacity -= 0.1
+                    if (opacity <= 0) opacity = 1
+                    this.setState({ opacity })
+                }, 200)
+            }
+            destory = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+        }
+        ReactDOM.render(<Life />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>
